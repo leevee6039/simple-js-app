@@ -1,0 +1,18 @@
+/*
+Text Color: #2d9ca6;
+Font Style : 'Lato', sans-serif;
+*/
+
+:root {
+  --primary-font-family: 'Lato', sans-serif;
+  --primary-font-color: #2d9ca6;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.pokemon-list {
+  font-family: var(--primary-font-family);
+  color: var(--primary-font-color);
+}
