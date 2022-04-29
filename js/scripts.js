@@ -27,14 +27,12 @@ let pokemonList = [
   }
 ];
 
-let pokemon = ''; // declare a empty variable
- // for loop that iterates each pokemon in the above array
-for(let i = 0; i < pokemonList.length; i++) {
+// forEach loop that iterates each pokemon in the above array
+pokemonList.forEach(function(pokemon) {
   // added condition for the pokemon height > 5
-  if (pokemonList[i].height > 5) {
-    pokemon = `<p class='pokemon-list'>${pokemonList[i].name} (height: ${pokemonList[i].height}) - Wow, that's big!</p>`;
-    document.write(pokemon);
+  if (pokemon.height > 5) {
+    document.write(`<p class='pokemon-list'>${pokemon.name} (height: ${pokemon.height}) - Wow, that's big!</p>`);
   } else {
-    document.write(`<p class='pokemon-list'>${pokemonList[i].name} (height: ${pokemonList[i].height})</p>`);
+    document.write(`<p class='pokemon-list'>${pokemon.name} (height: ${pokemon.height})</p>`);
   }
-}
+});
