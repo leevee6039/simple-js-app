@@ -7,6 +7,7 @@
 
 /*
 Text Color: #2d9ca6;
+secondary text color : #00bfff;
 Font Style : 'Lato', sans-serif;
 */
 
@@ -15,7 +16,12 @@ Font Style : 'Lato', sans-serif;
           box-sizing: border-box;
 }
 
+
 .pokemon-list {
   font-family: 'Lato', sans-serif;
   color: #2d9ca6;
+}
+
+.random-pokemon {
+  color: #00bfff;
 }

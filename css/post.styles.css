@@ -1,18 +1,28 @@
 /*
 Text Color: #2d9ca6;
+secondary text color : #00bfff;
 Font Style : 'Lato', sans-serif;
 */
 
 :root {
   --primary-font-family: 'Lato', sans-serif;
   --primary-font-color: #2d9ca6;
+  --secondary-font-color: #00bfff;
 }
 
 * {
   box-sizing: border-box;
 }
 
+.body {
+  font-family: var(--primary-font-family);
+}
+
 .pokemon-list {
   font-family: var(--primary-font-family);
   color: var(--primary-font-color);
+}
+
+.random-pokemon {
+  color: var(--secondary-font-color);
 }

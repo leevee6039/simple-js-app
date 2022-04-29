@@ -40,9 +40,21 @@ let pokemonRepository = (function() {
 
   // function to add single pokemon to the pokemonList from outside IIFE
   function add(pokemon) {
-    return pokemonList.push(pokemon)
-  }
 
+    // current pokemonList keys
+    const pokemonListKeys = Object.keys(pokemonList[0]);
+    // newly added pokemon keys
+    const pokemonKeys = Object.keys(pokemon);
+
+    // compare arrays
+    const hasAllKeys = JSON.stringify(pokemonListKeys) === JSON.stringify(pokemonKeys);
+    // added condition if true
+    if (typeof pokemon === 'object' && hasAllKeys) {
+      return pokemonList.push(pokemon);
+    } else {
+      return alert('To add a pokémon, pokemon type should be object + keys should be {name: , height: , types:[]}')
+    }
+  }
 
   return {
     getAll,
@@ -71,3 +83,17 @@ updatedPokemonList.forEach(function(pokemon) {
     document.write(`<p class='pokemon-list'>${pokemon.name} (height: ${pokemon.height})</p>`);
   }
 });
+
+// added filter function to filter pokemon by name
+const pokemonNames = updatedPokemonList.map(function(pokemonName) {
+  return pokemonName.name;
+});
+console.log(pokemonNames);
+
+const randomNum = Math.floor(Math.random() * ((pokemonNames.length -1) + 1));
+
+const pokemonFilterByNames = updatedPokemonList.filter(function(pokemonFilterName, i) {
+  return pokemonFilterName.name === pokemonNames[i];
+});
+console.log(pokemonFilterByNames);
+document.write(`<p class='random-pokemon'> Filtered pokémons ${pokemonFilterByNames[randomNum].name}</p>`)
