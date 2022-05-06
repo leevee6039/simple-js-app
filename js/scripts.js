@@ -60,7 +60,7 @@ let pokemonRepository = (function() {
     console.log(pokemon);
   }
 
-  //
+  // function for button click handler/listener
   function pokemonButtonClickHandler(button, pokemon) {
     button.addEventListener('click', function () {
       showDetails(pokemon);
@@ -86,8 +86,6 @@ let pokemonRepository = (function() {
     pokemonButtonClickHandler(button, pokemon);
   }
 
-
-
   return {
     getAll,
     add,
@@ -111,22 +109,3 @@ let updatedPokemonList = pokemonRepository.getAll();
 updatedPokemonList.forEach(function(pokemon) {
   pokemonRepository.addListItem(pokemon);
 });
-
-// // added filter function to filter pokemon by name
-// const pokemonNames = updatedPokemonList.map(function(pokemonName) {
-//   return pokemonName.name;
-// });
-// console.log(pokemonNames);
-//
-// const randomNum = Math.floor(Math.random() * ((pokemonNames.length -1) + 1));
-//
-// const pokemonFilterByNames = updatedPokemonList.filter(function(pokemonFilterName, i) {
-//   return pokemonFilterName.name === pokemonNames[i];
-// });
-// console.log(pokemonFilterByNames);
-// document.write(`<p class='random-pokemon'> Filtered pokémons ${pokemonFilterByNames[randomNum].name}</p>`)
-//
-// let button1 = document.querySelector('.event-test');
-// button1.addEventListener('click', function (event) {
-//   console.log(event);
-// });
