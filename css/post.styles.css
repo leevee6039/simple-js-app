@@ -2,12 +2,16 @@
 Text Color: #2d9ca6;
 secondary text color : #00bfff;
 Font Style : 'Lato', sans-serif;
+Button primary color: #0d6efd;
 */
 
 :root {
   --primary-font-family: 'Lato', sans-serif;
   --primary-font-color: #2d9ca6;
   --secondary-font-color: #00bfff;
+  --button-primary-color: #0d6efd;
+  --white-color: #fff;
+  --aliceblue-color: aliceblue;
 }
 
 * {
@@ -19,10 +23,49 @@ Font Style : 'Lato', sans-serif;
 }
 
 .pokemon-list {
+  /* border: solid 1px red; */
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: 50%;
+  background-color: var(--aliceblue-color);
+  border-radius: 5px;
+  padding: 0px;
+}
+
+.pokemon-list-item {
   font-family: var(--primary-font-family);
   color: var(--primary-font-color);
+  /* border: solid 1px blue; */
+  display: flex;
+  align-items: center;
+  margin: 5px 10px 5px 10px;
+  /* background-color: antiquewhite; */
+}
+
+.pokemon-list-item:first-child {
+  margin-top: 10px;
+}
+
+.pokemon-list-item:last-child {
+  margin-bottom: 10px;
 }
 
 .random-pokemon {
   color: var(--secondary-font-color);
+}
+
+.pokemon-list-button {
+  background-color: var(--button-primary-color);
+  color: var(--white-color);
+  text-align: center;
+  line-height: 75px;
+  font-size: 30px;
+  border-radius: 5px;
+  flex-grow: 1;
+  cursor: pointer;
+}
+
+li {
+  list-style-type: none;
 }
