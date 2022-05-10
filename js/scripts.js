@@ -5,33 +5,8 @@ https://www.pokemon.com/us/pokedex/
 
 let pokemonRepository = (function() {
   // array list of pokemon
-  let pokemonList = [
-    {
-      name: 'Bulbasaur',
-      height: 7,
-      types: ['grass', 'posion']
-    },
-    {
-      name: 'Charmander',
-      height: 6,
-      types: ['fire']
-    },
-    {
-      name: 'Squirtle',
-      height: 5,
-      types: ['water']
-    },
-    {
-      name: 'Weedle',
-      height: 6,
-      types: ['bug', 'posion']
-    },
-    {
-      name: 'Pikachu',
-      height: 4,
-      types: ['electric']
-    }
-  ];
+  let pokemonList = [];
+  let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=150';
 
   // function to return all items of pokemonList from outside IIFE
   function getAll() {
@@ -40,15 +15,8 @@ let pokemonRepository = (function() {
 
   // function to add single pokemon to the pokemonList from outside IIFE
   function add(pokemon) {
-
-    // current pokemonList keys
-    const pokemonListKeys = Object.keys(pokemonList[0]);
-    // newly added pokemon keys
-    const pokemonKeys = Object.keys(pokemon);
-    // compare arrays
-    const hasAllKeys = JSON.stringify(pokemonListKeys) === JSON.stringify(pokemonKeys);
     // added condition if true
-    if (typeof pokemon === 'object' && hasAllKeys) {
+    if (typeof pokemon === 'object' && 'name' in pokemon && 'detailsUrl' in pokemon ) {
       return pokemonList.push(pokemon);
     } else {
       return alert('To add a pokémon, pokemon type should be object + keys should be {name: , height: , types:[]}')
@@ -57,7 +25,9 @@ let pokemonRepository = (function() {
 
   // showDetails funtion to log the pokemon
   function showDetails(pokemon) {
-    console.log(pokemon);
+    loadDetails(pokemon).then(function () {
+      console.log(pokemon);
+    });
   }
 
   // function for button click handler/listener
@@ -86,26 +56,54 @@ let pokemonRepository = (function() {
     pokemonButtonClickHandler(button, pokemon);
   }
 
+  // fectch function for
+  function loadList() {
+    return fetch(apiUrl).then(function(response) {
+      return response.json();
+    }).then(function(json) {
+      json.results.forEach(function(item) {
+        let pokemon = {
+          name: item.name,
+          detailsUrl: item.url
+        };
+        add(pokemon);
+        console.log(pokemon);
+      });
+    }).catch(function(e) {
+      console.error(e);
+    })
+  }
+
+  function loadDetails(item) {
+    let url = item.detailsUrl;
+    return fetch(url).then(function(response) {
+      return response.json();
+    }).then(function(details) {
+      // Now we add the details  to the item
+      item.imageUrl = details.sprites.front_default;
+      item.height = details.height;
+      item.types = details.types;
+    }).catch(function(e) {
+      console.error(e);
+    })
+  }
+
   return {
     getAll,
     add,
-    addListItem
+    addListItem,
+    loadList,
+    loadDetails
   }
 })();
+
 //added log to check the current pokemonList array
 console.log(pokemonRepository.getAll());
-//updated pokemonList array by adding pokemon
-pokemonRepository.add({
-  name: 'Onix',
-  height: 28,
-  types: ['rock', 'ground']
-});
-//added log to check the updated pokemonList array
-console.log(pokemonRepository.getAll());
 
-
-let updatedPokemonList = pokemonRepository.getAll();
 // forEach loop that iterates each pokemon in the above array
-updatedPokemonList.forEach(function(pokemon) {
-  pokemonRepository.addListItem(pokemon);
-});
+pokemonRepository.loadList().then(function() {
+  // Now the data is loaded!
+  pokemonRepository.getAll().forEach(function(pokemon) {
+    pokemonRepository.addListItem(pokemon)
+  });
+})
