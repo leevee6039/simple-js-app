@@ -56,25 +56,8 @@ let pokemonRepository = (function() {
     pokemonButtonClickHandler(button, pokemon);
   }
 
-  function showLoadingMessage() {
-    let div = document.querySelector('.container');
-    let loadingConatiner = document.createElement('div');
-    const para = document.createElement('p');
-    loadingConatiner.appendChild(para);
-    const loadingMessage = document.createTextNode('Loading...')
-    loadingConatiner.classList.add('loading-message');
-    para.appendChild(loadingMessage);
-    div.insertBefore(loadingConatiner, div.children[0]);
-  }
-
-  function hideLoadingMessage() {
-    let loadingMsg = document.querySelector('.loading-message');
-    loadingMsg.parentNode.removeChild(img);
-  }
-
-  // fectch function for
+  // function to fetch Pokémon List from the external API
   function loadList() {
-    showLoadingMessage();
     return fetch(apiUrl).then(function(response) {
       return response.json();
     }).then(function(json) {
@@ -85,16 +68,14 @@ let pokemonRepository = (function() {
         };
         add(pokemon);
         console.log(pokemon);
-      }).then(function() {
-        hideLoadingMessage();
       });
     }).catch(function(e) {
       console.error(e);
     })
   }
 
+  // function to fetch each Pokémon details
   function loadDetails(item) {
-    showLoadingMessage();
     let url = item.detailsUrl;
     return fetch(url).then(function(response) {
       return response.json();
@@ -103,8 +84,6 @@ let pokemonRepository = (function() {
       item.imageUrl = details.sprites.front_default;
       item.height = details.height;
       item.types = details.types;
-    }).then(function() {
-      hideLoadingMessage();
     }).catch(function(e) {
       console.error(e);
     })
