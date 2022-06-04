@@ -69,10 +69,6 @@ section {
   padding: 0 50px;
 }
 
-.pokemon-list-button:hover{
-  background-color: rgba(13, 110, 253, 0.8);
-}
-
 li {
   list-style-type: none;
 }

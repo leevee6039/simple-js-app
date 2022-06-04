@@ -8,6 +8,9 @@ let pokemonRepository = (function() {
   let pokemonList = [];
   let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=150';
 
+  let input = $('input');
+  input.on('input', filterList);
+
   // function to return all items of pokemonList from outside IIFE
   function getAll() {
     return pokemonList;
@@ -78,7 +81,7 @@ let pokemonRepository = (function() {
     listItem.classList.add('pokemon-list-item'); // adding classList to add class
     ul.appendChild(listItem); // append the li to the ul as its child
     let button = document.createElement('button'); // created button tag
-    button.innerText = pokemon.name; // adding pokemon name as the text  to the button
+    button.innerText = capitalizeWord(pokemon.name); // adding pokemon name as the text  to the button
     button.classList.add('btn');
     button.classList.add('btn-primary');
     button.classList.add('btn-block');
@@ -114,6 +117,21 @@ let pokemonRepository = (function() {
     })
   }
 
+  // filter function to search pokemon while entering pokemon name
+  function filterList() {
+    let inputValue = $('input').val().toLowerCase();
+    let list = $('li');
+    list.each(function () {
+      let item = $(this);
+      let name = item.text().toLowerCase();
+      if (name.startsWith(inputValue)) {
+        item.show();
+      } else {
+        item.hide();
+      }
+    });
+  }
+
   // function to fetch each Pokémon details
   function loadDetails(item) {
     let url = item.detailsUrl;
@@ -127,7 +145,7 @@ let pokemonRepository = (function() {
       // forEach loop to get through each type instead of 'Types: [object Object],[object Object]'
       let types = [];
       details.types.forEach(function(pokemon) {
-        types.push(pokemon.type.name);
+        types.push(capitalizeWord(pokemon.type.name));
       });
       item.types = types;
 
@@ -136,13 +154,22 @@ let pokemonRepository = (function() {
     })
   }
 
+  function capitalizeWord(word) {
+    if(typeof word !== 'string') {
+      return '';
+    } else {
+      return word.charAt(0).toUpperCase() + word.slice(1);
+    }
+  }
+
   return {
     getAll,
     add,
     addListItem,
     loadList,
     loadDetails,
-    showModal
+    showModal,
+    filterList
   }
 })();
 
