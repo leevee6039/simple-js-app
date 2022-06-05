@@ -10,7 +10,7 @@ Hosted on [GitHub Pages](https://leevee6039.github.io/simple-js-app/ 'GitHub Pag
 
 ## App screenshot
 
-![web image]()
+![web image](/src/assets/imgs/pokédox_app.png)
 
 ### Dependencies
 
@@ -25,7 +25,7 @@ Hosted on [GitHub Pages](https://leevee6039.github.io/simple-js-app/ 'GitHub Pag
 - JavaScript
 - jQuery
 - Bootstrap
-- Pokédex API[1-151](https://pokeapi.co/api/v2/pokemon/?limit=150)
+- Pokédex API [1-151](https://pokeapi.co/api/v2/pokemon/?limit=150) Pokemons
 
 ### Installing
 
